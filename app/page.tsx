@@ -94,7 +94,7 @@ export default function Home() {
       <div id="top" className="content-column">
         <div className="floating-preferences">
           <PreferenceControls />
-          <span className="craft-note craft-note-controls" aria-hidden="true"><strong>NN/g 3 · User control</strong>System first, reversible choices and optional sound that never carries meaning.</span>
+          <span className="craft-note craft-note-controls" aria-hidden="true"><strong>NN/g 3 · User control</strong> System first, reversible choices and optional sound that never carries meaning.</span>
         </div>
         <section className="hero" aria-labelledby="hero-title">
           <div className="profile-row">
@@ -108,7 +108,7 @@ export default function Home() {
               </div>
               <p>Product and design leader · Zurich</p>
             </div>
-            <span className="craft-note craft-note-profile" aria-hidden="true"><strong>Accessible by default</strong>Semantic hierarchy, descriptive labels and visible keyboard focus.</span>
+            <span className="craft-note craft-note-profile" aria-hidden="true"><strong>Accessible by default</strong> Semantic hierarchy, descriptive labels and visible keyboard focus.</span>
           </div>
           <div className="hero-copy">
             <p>I’m Frederic, a Belgian product and design leader based in Zurich. I work where traditional finance, digital assets and decentralised finance meet, turning complex regulatory, business and customer problems into products people want to use.</p>
@@ -121,8 +121,8 @@ export default function Home() {
             <p className="contact-line">
               You can reach me on <ContactLink href="https://x.com/freberghmans" type="x" label="Frederic on X" external />, <ContactLink href="https://www.linkedin.com/in/fredericberghmans/" type="linkedin" external>LinkedIn</ContactLink>, or see what I’m building on <ContactLink href="https://github.com/fredberghmans" type="github" external>GitHub</ContactLink>. You can also send me an <ContactLink href="mailto:info@fredericberghmans.com" type="email">email</ContactLink> or view my <ContactLink href="/frederic-berghmans-resume.pdf" type="resume" external>résumé</ContactLink>.
             </p>
-            <span className="craft-note craft-note-reading" aria-hidden="true"><strong>Reading, not decoration</strong>620px measure, 1.6 line height and an 8px spacing rhythm keep the story scannable.</span>
-            <span className="craft-note craft-note-links" aria-hidden="true"><strong>NN/g 6 · Recognition</strong>Logos and underlines make companies recognisable without relying on colour alone.</span>
+            <span className="craft-note craft-note-reading" aria-hidden="true"><strong>Reading, not decoration</strong> 620px measure, 1.6 line height and an 8px spacing rhythm keep the story scannable.</span>
+            <span className="craft-note craft-note-links" aria-hidden="true"><strong>NN/g 6 · Recognition</strong> Logos and underlines make companies recognisable without relying on colour alone.</span>
           </div>
         </section>
 
@@ -137,7 +137,7 @@ export default function Home() {
               </article>
             ))}
           </div>
-          <span className="craft-note craft-note-system" aria-hidden="true"><strong>NN/g 4 · Consistency</strong>Shared tokens, reusable rows and predictable states reduce relearning.</span>
+          <span className="craft-note craft-note-system" aria-hidden="true"><strong>NN/g 4 · Consistency</strong> Shared tokens, reusable rows and predictable states reduce relearning.</span>
         </section>
 
         <section className="section" aria-labelledby="recognition-title">
@@ -174,7 +174,7 @@ export default function Home() {
           </dl>
         </section>
 
-        <section className="belief" aria-label="Product belief"><p>Design should own product outcomes, not only interfaces. Shipping is not success unless it creates a result we can measure.</p><span className="craft-note craft-note-motion" aria-hidden="true"><strong>Calm technology</strong>Motion uses opacity and transform. Reduced-motion preferences remove the flourish.</span></section>
+        <section className="belief" aria-label="Product belief"><p>Design should own product outcomes, not only interfaces. Shipping is not success unless it creates a result we can measure.</p><span className="craft-note craft-note-motion" aria-hidden="true"><strong>Calm technology</strong> Motion uses opacity and transform. Reduced-motion preferences remove the flourish.</span></section>
         <footer className="site-footer">
           <span className="build-note-wrap">
             <button type="button" className="build-note" aria-describedby="build-tooltip">
