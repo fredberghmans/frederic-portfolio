@@ -11,54 +11,21 @@ inline JS data arrays or JSX, not a CMS.
 ## Commands
 
 ```bash
-npm install              # or: npm run install:ci for a locked, reproducible install
-npm run dev               # local dev server (Vite + vinext), http://terminal.local or localhost
-npm run build              # production build (bash scripts/build-verified.sh)
-npm run start                # run the built app
-npm test                       # build, then run tests/rendered-html.test.mjs against dist/
-npm run lint                    # eslint (flat config, eslint-config-next)
-npm run db:generate              # drizzle-kit generate, after editing db/schema.ts
-npm run validate:artifact         # sanity-check a built dist/ output (worker export + hosting.json)
+npm install       # install dependencies
+npm run dev        # local dev server (Next.js + Turbopack), http://localhost:3000
+npm run build        # production build
+npm run start          # run the built app
+npm run lint             # eslint (flat config, eslint-config-next)
 ```
 
-There is a single test file (`tests/rendered-html.test.mjs`, run with node's
-built-in test runner). It imports the **built** worker at
-`dist/server/index.js`, so it only works after `npm run build`; `npm test`
-runs both in sequence. There's no way to run "a single test" separately from
-that file today — add `test.only(...)` in the file if you need to isolate one.
-
-`npm run build`, `npm run lint`, and `npm run db:generate` all funnel through
-`scripts/sites-env.sh`, which pins `HOME`/npm cache/Wrangler paths under
-`.sites-runtime/` for the OpenAI Sites CI builder. `scripts/build-verified.sh`
-additionally requires GNU `timeout` (and `install-ci.sh` requires `flock` and
-`sha256sum`), which aren't present on stock macOS — install coreutils/util-linux
-via Homebrew, or run `node_modules/.bin/vinext build` directly, if `npm run
-build` fails with a missing-command error locally. `npm run dev` does not need
-any of this and works out of the box.
+There are no automated tests in this repo currently.
 
 ## Architecture
 
 **Stack**: Next.js App Router on React 19 + TypeScript, styled with Tailwind
-CSS 4 driven by semantic CSS custom properties. The app runs on
-**[vinext](https://github.com/cloudflare/vinext)**, which compiles the Next.js
-app to run on **Cloudflare Workers** via Vite — this is not a standard
-Next.js/Vercel deployment despite `docs/08-technical-architecture.md`
-describing a Vercel-hosting plan; the README and `vite.config.ts`/`worker/`
-reflect what's actually wired up today (Cloudflare Workers, currently served
-through OpenAI's Sites platform). Treat the docs' hosting section as
-aspirational and the README's "Hosting" section as current truth.
-
-**Request flow**: `worker/index.ts` is the Cloudflare Worker entry point. It
-intercepts `/_vinext/image` for on-the-fly image optimization (via Cloudflare
-Images) and otherwise delegates to vinext's generated App Router handler. Env
-bindings (`ASSETS`, `DB`, `IMAGES`) are declared there and configured for local
-dev in `vite.config.ts`, which reads `.openai/hosting.json` to decide whether
-to simulate D1/R2 bindings at all (both are `null`/unused by default).
-
-**Build packaging**: `build/sites-vite-plugin.ts` (the `sites()` Vite plugin)
-runs after the Vite build and copies `.openai/hosting.json` and any
-`drizzle/` migrations into `dist/.openai/`, which is what the Sites hosting
-platform expects to find alongside the compiled worker.
+CSS 4 driven by semantic CSS custom properties. Standard Next.js build and
+runtime — no custom server, edge worker, or database wiring. Deployed on
+Vercel.
 
 **Content vs. components**: `content/homepage.md` is a human-readable copy
 outline / source of truth for wording, but it is *not* consumed at build
@@ -82,16 +49,6 @@ off-by-default preferences: interface sound (`fred-sound`, tiny WebAudio
 tones on click) and an "inspection" mode (`fred-inspect`, toggles design
 annotation callouts — the `.craft-note` elements in `page.tsx`).
 
-**Auth (unused by default)**: `app/chatgpt-auth.ts` provides helpers for
-"Sign in with ChatGPT" against OpenAI Sites' hosting-layer auth (reads
-`oai-authenticated-user-*` request headers; Sites owns the actual
-`/signin-with-chatgpt` etc. routes). The homepage doesn't call these — they
-exist for a future authenticated page.
-
-**Database**: Drizzle ORM + Cloudflare D1 is wired up but intentionally
-unused — `db/schema.ts` is empty by design. `examples/d1/` shows the opt-in
-pattern (schema + a route using it) to copy from if a page needs data.
-
 ## Working rules (from AGENTS.md — read it in full before structural changes)
 
 - Read `docs/00-project-brief.md` and any doc relevant to the change before
@@ -106,5 +63,5 @@ pattern (schema + a route using it) to copy from if a page needs data.
   `prefers-reduced-motion`; every control must be keyboard- and AT-operable.
 - Engineering: strict TypeScript; prefer server components, add `"use client"`
   only where interaction requires it; reuse existing components/CSS variables
-  before adding new ones; run lint, type checks, tests, and a production build
+  before adding new ones; run lint, type checks, and a production build
   before considering implementation work done.

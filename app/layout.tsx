@@ -6,7 +6,6 @@ export const metadata: Metadata = {
   title: "Frederic Berghmans | Product and Design Leader",
   description: "Product and design leader working across strategy, design, technology, AI, and delivery.",
   metadataBase: new URL("https://www.fredericberghmans.com"),
-  other: { "codex-preview": "development" },
   icons: { icon: "/frederic-mark.svg", shortcut: "/frederic-mark.svg" },
 };
 

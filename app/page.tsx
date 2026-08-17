@@ -63,7 +63,7 @@ const capabilities = [
   ["Delivery", "Vendors, regulation, operations, launch"],
 ];
 
-const buildStack = ["Next.js", "React", "TypeScript", "Tailwind CSS", "Node.js", "Cloudflare"];
+const buildStack = ["Next.js", "React", "TypeScript", "Tailwind CSS", "Node.js", "Vercel"];
 
 function CompanyLink({ href, icon, children }: { href: string; icon: string; children: ReactNode }) {
   return (

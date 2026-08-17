@@ -46,27 +46,16 @@ read the relevant doc first — `AGENTS.md` has the full contributor checklist.
 - **Next.js** (App Router) on **React 19** and **TypeScript**
 - **Tailwind CSS 4**, driven by semantic CSS variables (`app/globals.css`)
 - **Inter Variable**, self-hosted via `@fontsource-variable/inter`
-- **[vinext](https://github.com/cloudflare/vinext)** — runs Next.js on
-  Cloudflare Workers via Vite
-- **Drizzle ORM** + Cloudflare **D1** — wired up but unused by default
-  (`db/schema.ts` is intentionally empty; see `examples/d1/` for an opt-in
-  example)
-- Hosted on **Cloudflare Workers**, currently served through OpenAI's Sites
-  platform (see [Hosting](#hosting) below)
+- Hosted on **Vercel**
 
 ## Project structure
 
 ```
-app/            Next.js App Router: layout, homepage, ChatGPT sign-in helpers
+app/            Next.js App Router: layout, homepage
 components/     Reusable UI: brand mark, theme/sound controls, social links
 content/        Editorial copy outline, kept separate from components
-db/             Drizzle client + schema (empty until the site needs data)
 docs/           Product brief, positioning, IA, design system, architecture
-examples/d1/    Opt-in example of a D1-backed route + schema
 public/         Static assets: images, favicon, résumé
-scripts/        Install/build/dev helper scripts (see Hosting)
-tests/          Build/render checks
-worker/         Cloudflare Worker entry point (image optimization, routing)
 ```
 
 ## Getting started
@@ -74,13 +63,11 @@ worker/         Cloudflare Worker entry point (image optimization, routing)
 Prerequisites: Node.js `>=22.13.0`.
 
 ```bash
-npm install        # or: npm run install:ci for a locked, reproducible install
-npm run dev         # start the local dev server (Vite + vinext)
-npm run build        # production build
-npm run start        # run the built app
-npm test               # build, then verify rendered output
-npm run lint            # eslint
-npm run db:generate      # generate Drizzle migrations after schema changes
+npm install     # install dependencies
+npm run dev      # start the local dev server
+npm run build     # production build
+npm run start      # run the built app
+npm run lint         # eslint
 ```
 
 Edit site content and UI under `app/` and `components/`; theme tokens and
@@ -88,31 +75,11 @@ global styles live in `app/globals.css`.
 
 ## Hosting
 
-This repo is currently deployed via the OpenAI Sites platform, which runs
-on Cloudflare Workers under the hood. A few things are specific to that setup:
-
-- `.openai/hosting.json` declares optional D1/R2 bindings; `vite.config.ts`
-  simulates them locally.
-- `worker/index.ts` is the Cloudflare Worker entry point (routes requests,
-  handles image optimization).
-- `scripts/install-ci.sh` and `scripts/build-verified.sh` back the
-  `install:ci` and `build` npm scripts. They're written for the Sites
-  builder's Linux environment (single-socket, non-retrying `npm ci`, a
-  bounded build with artifact validation) — not general-purpose scripts, and
-  not native to macOS.
-- `app/chatgpt-auth.ts` provides optional "Sign in with ChatGPT" helpers for
-  pages that need per-user identity. The homepage doesn't use them; they're
-  available if a future page needs an authenticated view. Dispatch (the
-  hosting platform) owns the actual auth routes and cookies — see the
-  helper's doc comments for usage.
-
-None of this is required to run the site locally with plain `npm run dev`
-or to deploy it elsewhere (e.g. Cloudflare Pages/Workers directly); it's
-what makes the OpenAI Sites builder specifically work.
+Deployed on Vercel, connected to this repository — pushes to `main` deploy to
+production, and other branches/PRs get preview deployments.
 
 ## Learn more
 
-- [vinext documentation](https://github.com/cloudflare/vinext)
-- [Drizzle D1 guide](https://orm.drizzle.team/docs/get-started/d1-new)
+- [Next.js documentation](https://nextjs.org/docs)
 - `AGENTS.md` for contributor/agent working rules (product, visual,
   interaction, and engineering principles)
