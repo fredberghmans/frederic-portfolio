@@ -51,9 +51,16 @@ annotation callouts — the `.craft-note` elements in `page.tsx`).
 
 ## Working rules (from AGENTS.md — read it in full before structural changes)
 
-- Read `docs/00-project-brief.md` and any doc relevant to the change before
-  touching positioning, IA, or the visual system. Don't duplicate rules
-  across docs; link to the source of truth instead.
+Before changing positioning, IA, the visual system, or interaction/motion
+behavior, read `AGENTS.md` and whichever of these are relevant to the change:
+`docs/00-project-brief.md` (purpose, audiences, success criteria),
+`docs/01-positioning.md` (positioning, differentiation, tone of voice),
+`docs/05-visual-direction.md` (visual character, typography, color, portrait),
+`docs/06-design-system.md` (type scale, layout, semantic tokens, components),
+`docs/07-motion-and-sound.md` (motion vocabulary, reduced motion, sound
+rules), `docs/08-technical-architecture.md` (stack, rendering, a11y, SEO).
+Don't duplicate rules across docs; link to the source of truth instead.
+
 - Visual: one typeface (Inter Variable); equal support for dark/light/system;
   compact, centered, editorial, content-led; no glow/3D/gradients/glassmorphism/
   floating blobs/oversized display type; no colors, spacing, radii, shadows, or
